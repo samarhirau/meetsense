@@ -1,5 +1,8 @@
 # MeetSense — AI-Powered Meeting Notes & Action Item Extractor
 
+**Designed & Developed by [Samar Hirau](https://samarhirau.dev)**
+
+
 MeetSense is a full-stack, production-ready SaaS web application that converts meeting audio recordings into structured summaries, key decisions, follow-ups, and an interactive Kanban-style task board. It supports transcription for **English**, **Hindi**, and code-switched **Hinglish** speech.
 
 The application leverages **Groq's Whisper API** for high-fidelity speech-to-text, **Groq's Llama 3.3 70B** for prompt-based structured JSON extraction, and **Cloudinary** for secure, temporary storage of audio files.

@@ -331,7 +331,15 @@ const LandingPage: React.FC = () => {
           <div className="flex items-center gap-2">
             <AudioLines className="w-4 h-4 text-brand-accent" />
             <span className="text-xs font-mono tracking-widest text-brand-text-muted uppercase">
-              MeetSense &copy; 2026. All rights reserved.
+              MeetSense &copy; 2026 &bull; Designed & Developed by{' '}
+              <a 
+                href="https://samarhirau.dev" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-brand-accent hover:text-brand-accent/80 transition-colors normal-case font-bold"
+              >
+                Samar Hirau
+              </a>
             </span>
           </div>
 
