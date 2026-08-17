@@ -40,7 +40,7 @@ let timerInterval = null;
 let targetTabId = null;
 
 // Default API Config
-const DEFAULT_API_URL = 'http://localhost:5000/api';
+const DEFAULT_API_URL = 'https://meetsense-c1vl.onrender.com/api';
 
 // Initialize Popup
 document.addEventListener('DOMContentLoaded', async () => {

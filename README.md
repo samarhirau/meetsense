@@ -56,6 +56,13 @@ graph TD
 
 ```text
 MeetSense/
+├── extension/                # Manifest V3 Chrome Extension Companion
+│   ├── manifest.json         # Extension permissions and configurations
+│   ├── background.js         # Service worker hub (persistent state storage)
+│   ├── content.js            # Floating status pill overlay for Google Meet
+│   ├── offscreen.html/js     # Web Audio API mixer (microphone + tab audio)
+│   └── popup.html/js/css     # Dark-themed popup with timer and settings
+│
 ├── backend/                  # Express + TypeScript Server
 │   ├── src/
 │   │   ├── config/           # Database and Cloudinary client configs
@@ -72,12 +79,14 @@ MeetSense/
 │   ├── src/
 │   │   ├── components/       # Reusable components (KanbanBoard, Navbar)
 │   │   ├── context/          # React Auth Context & API fetch helper
-│   │   ├── pages/            # View Pages (Auth, Dashboard, MeetingDetails)
+│   │   ├── pages/            # View Pages (Auth, Dashboard, MeetingDetails, LandingPage)
 │   │   ├── App.tsx           # Page router and route guarding
 │   │   ├── index.css         # Tailwind baseline and custom scrollbar styles
 │   │   └── main.tsx          # DOM mounter
+│   ├── public/               # Static assets folder (hosts meetsense-extension.zip)
 │   ├── index.html
 │   ├── tailwind.config.js
+│   ├── zip-extension.js      # Script to package extension directory to static zip
 │   └── package.json
 └── README.md
 ```
@@ -139,6 +148,21 @@ npm install
 npm run dev
 ```
 The Vite development server will spin up on port `5173` (e.g. `http://localhost:5173`). Open your browser to begin transcribing.
+
+### 5. Package & Install Chrome Extension (Developer Mode)
+The Chrome Extension can be packaged and loaded into Chrome using these steps:
+- **To package/regenerate the downloadable extension zip file**:
+  ```bash
+  cd frontend
+  npm run zip-extension
+  ```
+  This bundles the `/extension` directory into a static zip archive at `frontend/public/meetsense-extension.zip`. *Note: This step is automatically run during the frontend `npm run build` command.*
+- **To install the extension in Chrome**:
+  1. Download the zip from the landing page or locate the generated file at `frontend/public/meetsense-extension.zip` and extract it on your local machine.
+  2. Open Chrome and navigate to `chrome://extensions`.
+  3. Toggle the **"Developer mode"** switch on in the top-right corner.
+  4. Click the **"Load unpacked"** button in the top-left and select the extracted extension folder (containing `manifest.json`).
+  5. Pin the **MeetSense** extension icon to your browser toolbar.
 
 ---
 

@@ -323,6 +323,111 @@ const LandingPage: React.FC = () => {
           </div>
         </section>
 
+        {/* BROWSER EXTENSION SECTION */}
+        <section className="bg-brand-surface/20 border-t border-b border-brand-border py-20">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <span className="text-[10px] font-mono tracking-widest uppercase text-brand-accent block mb-2">
+                browser extension
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold font-display tracking-tight text-brand-text-primary">
+                Never forget to record again
+              </h2>
+              <p className="mt-4 text-brand-text-muted text-xs md:text-sm font-sans max-w-2xl mx-auto leading-relaxed">
+                The MeetSense Chrome Extension lets you record any Google Meet call directly from your browser with a single click. 
+                No manual file uploads needed — recordings automatically stream, process, and appear directly in your dashboard.
+              </p>
+            </div>
+
+            {/* 3-Step Mini Visual */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative mb-16">
+              {/* Step 1 */}
+              <div className="flex flex-col bg-brand-surface border border-brand-border rounded-lg p-6 hover:border-brand-accent/40 transition-all">
+                <div className="w-10 h-10 border border-brand-border rounded-lg flex items-center justify-center mb-6">
+                  <span className="text-xs font-mono font-bold text-brand-accent">01</span>
+                </div>
+                <h3 className="text-sm font-bold font-mono tracking-wide text-brand-text-primary mb-3">
+                  1. JOIN GOOGLE MEET
+                </h3>
+                <p className="text-brand-text-muted text-xs leading-relaxed font-sans">
+                  Enter your Google Meet room. A floating MeetSense notch will automatically appear at the top of your screen.
+                </p>
+                <div className="mt-6 flex justify-center py-4 bg-brand-bg/40 border border-brand-border rounded">
+                  <Globe className="w-5 h-5 text-brand-accent" />
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="flex flex-col bg-brand-surface border border-brand-border rounded-lg p-6 hover:border-brand-accent/40 transition-all">
+                <div className="w-10 h-10 border border-brand-border rounded-lg flex items-center justify-center mb-6">
+                  <span className="text-xs font-mono font-bold text-brand-accent">02</span>
+                </div>
+                <h3 className="text-sm font-bold font-mono tracking-wide text-brand-text-primary mb-3">
+                  2. CLICK RECORD
+                </h3>
+                <p className="text-brand-text-muted text-xs leading-relaxed font-sans">
+                  Click the "Start" button in the status pill or use the extension popup to start capturing local mic and tab audio.
+                </p>
+                <div className="mt-6 flex justify-center py-4 bg-brand-bg/40 border border-brand-border rounded">
+                  <AudioLines className="w-5 h-5 text-brand-warning animate-pulse" />
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="flex flex-col bg-brand-surface border border-brand-border rounded-lg p-6 hover:border-brand-accent/40 transition-all">
+                <div className="w-10 h-10 border border-brand-border rounded-lg flex items-center justify-center mb-6">
+                  <span className="text-xs font-mono font-bold text-brand-accent">03</span>
+                </div>
+                <h3 className="text-sm font-bold font-mono tracking-wide text-brand-text-primary mb-3">
+                  3. AUTO-STREAM & SAVE
+                </h3>
+                <p className="text-brand-text-muted text-xs leading-relaxed font-sans">
+                  When you stop recording or close the meet tab, audio automatically uploads to your dashboard for insight extraction.
+                </p>
+                <div className="mt-6 flex justify-center py-4 bg-brand-bg/40 border border-brand-border rounded">
+                  <UploadCloud className="w-5 h-5 text-brand-accent" />
+                </div>
+              </div>
+            </div>
+
+            {/* Installation Guide & CTA */}
+            <div className="max-w-3xl mx-auto bg-brand-surface border border-brand-border rounded-lg p-8 space-y-6">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-6 border-b border-brand-border pb-6">
+                <div>
+                  <h3 className="text-base font-bold font-display text-brand-text-primary">
+                    Get the MeetSense Companion
+                  </h3>
+                  <p className="text-xs text-brand-text-muted mt-1 leading-relaxed">
+                    Download the unpacked extension zip to load it directly in Chrome.
+                  </p>
+                </div>
+                <a
+                  href="/meetsense-extension.zip"
+                  download="meetsense-extension.zip"
+                  className="w-full sm:w-auto bg-brand-accent hover:bg-brand-accent/90 text-brand-bg font-bold font-mono text-xs uppercase tracking-widest px-6 py-3 rounded-lg transition-all active:scale-[0.97] flex items-center justify-center gap-2"
+                >
+                  Download Extension
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+
+              <div className="space-y-3">
+                <h4 className="text-xs font-bold font-mono uppercase tracking-wider text-brand-accent">
+                  Installation Instructions (Developer Mode):
+                </h4>
+                <ol className="list-decimal list-inside space-y-2 text-xs text-brand-text-muted leading-relaxed font-sans pl-1">
+                  <li>Download and unzip the <code className="text-brand-accent font-mono bg-brand-bg/60 px-1 py-0.5 rounded text-[10px]">meetsense-extension.zip</code> file.</li>
+                  <li>Open a new browser tab and navigate to <code className="text-brand-accent font-mono bg-brand-bg/60 px-1 py-0.5 rounded text-[10px]">chrome://extensions</code>.</li>
+                  <li>Enable the <strong className="text-brand-text-primary">"Developer mode"</strong> toggle in the top-right corner.</li>
+                  <li>Click the <strong className="text-brand-text-primary">"Load unpacked"</strong> button in the top-left menu.</li>
+                  <li>Select the unzipped extension directory (make sure it's the folder containing <code className="font-mono text-[10px]">manifest.json</code>).</li>
+                  <li>Pin the <strong className="text-brand-text-primary">MeetSense</strong> icon to your Chrome toolbar for one-click access.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </main>
 
       {/* FOOTER */}
