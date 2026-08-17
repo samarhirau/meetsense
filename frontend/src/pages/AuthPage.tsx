@@ -1,3 +1,4 @@
+// src/pages/AuthPage.tsx
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Sparkles, Mail, Lock, User as UserIcon, AudioLines } from 'lucide-react';
@@ -45,38 +46,38 @@ const AuthPage: React.FC<AuthPageProps> = ({ defaultIsLogin = true }) => {
   };
 
   return (
-    <div className="min-h-screen bg-brand-bg text-brand-text-primary flex items-center justify-center p-4 relative overflow-hidden font-sans">
-      {/* Subtle signal-green ambient background glow */}
-      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[60%] bg-brand-accent/5 rounded-full blur-[130px] pointer-events-none"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-brand-accent/5 rounded-full blur-[130px] pointer-events-none"></div>
+    <div className="min-h-screen bg-brand-bg text-brand-text-primary flex items-center justify-center p-6 relative overflow-hidden font-sans">
+      {/* Premium ambient background glows */}
+      <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-[#6366F1]/5 rounded-full blur-[140px] pointer-events-none"></div>
+      <div className="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-[#6366F1]/3 rounded-full blur-[140px] pointer-events-none"></div>
 
-      <div className="w-full max-w-md z-10">
+      <div className="w-full max-w-md z-10 space-y-8 animate-fade-in">
         {/* Brand Header */}
-        <div className="text-center mb-8 flex flex-col items-center">
-          <div className="w-14 h-14 bg-brand-accent rounded-xl flex items-center justify-center mb-4 transition-transform duration-300">
-            <AudioLines className="w-7 h-7 text-brand-bg" />
+        <div className="text-center flex flex-col items-center">
+          <div className="w-12 h-12 bg-gradient-to-tr from-brand-accent to-brand-accent/80 rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-brand-accent/15">
+            <AudioLines className="w-6 h-6 text-brand-bg" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight font-display text-brand-text-primary">
             MeetSense
           </h1>
-          <p className="text-brand-text-muted text-xs font-mono tracking-wide uppercase mt-2">
-            AI-powered meeting summarizer
+          <p className="text-brand-text-muted text-[10px] font-mono tracking-widest uppercase mt-2.5">
+            Meetings happen. MeetSense remembers.
           </p>
         </div>
 
-        {/* Card */}
-        <div className="bg-brand-surface border border-brand-border rounded-xl p-8 shadow-none relative">
+        {/* Card container */}
+        <div className="bg-brand-surface border border-brand-border rounded-xl p-8 shadow-2xl relative">
           
           {/* Tabs */}
-          <div className="flex bg-brand-bg p-1 rounded-lg mb-8 border border-brand-border">
+          <div className="flex bg-[#05070A]/60 p-1 rounded-lg mb-8 border border-brand-border">
             <button
               onClick={() => {
                 setIsLogin(true);
                 setError('');
               }}
-              className={`flex-1 py-2 text-xs font-mono uppercase tracking-wider rounded-md transition-all duration-200 ${
+              className={`flex-1 py-2 text-[10px] font-mono font-bold uppercase tracking-wider rounded-md transition-all duration-200 cursor-pointer ${
                 isLogin
-                  ? 'bg-brand-surface text-brand-accent border border-brand-border'
+                  ? 'bg-brand-surface text-brand-text-primary border border-brand-border shadow-sm'
                   : 'text-brand-text-muted hover:text-brand-text-primary'
               }`}
             >
@@ -87,9 +88,9 @@ const AuthPage: React.FC<AuthPageProps> = ({ defaultIsLogin = true }) => {
                 setIsLogin(false);
                 setError('');
               }}
-              className={`flex-1 py-2 text-xs font-mono uppercase tracking-wider rounded-md transition-all duration-200 ${
+              className={`flex-1 py-2 text-[10px] font-mono font-bold uppercase tracking-wider rounded-md transition-all duration-200 cursor-pointer ${
                 !isLogin
-                  ? 'bg-brand-surface text-brand-accent border border-brand-border'
+                  ? 'bg-brand-surface text-brand-text-primary border border-brand-border shadow-sm'
                   : 'text-brand-text-muted hover:text-brand-text-primary'
               }`}
             >
@@ -99,7 +100,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ defaultIsLogin = true }) => {
 
           {/* Error Alert */}
           {error && (
-            <div className="bg-red-950/20 border border-red-500/20 text-red-200 text-xs px-4 py-3 rounded-lg mb-6 font-mono">
+            <div className="bg-red-950/20 border border-red-500/25 text-red-200 text-xs px-4 py-3 rounded-lg mb-6 font-mono leading-relaxed">
               {error}
             </div>
           )}
@@ -112,14 +113,14 @@ const AuthPage: React.FC<AuthPageProps> = ({ defaultIsLogin = true }) => {
                   Full Name
                 </label>
                 <div className="relative">
-                  <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-text-muted" />
+                  <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#475569]" />
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="John Doe"
                     disabled={loading}
-                    className="w-full pl-11 pr-4 py-2.5 bg-brand-bg border border-brand-border focus:border-brand-accent rounded-lg outline-none text-xs font-body tracking-wide transition-all placeholder-slate-700 disabled:opacity-50 text-brand-text-primary"
+                    className="w-full pl-11 pr-4 py-2.5 bg-[#05070A] border border-brand-border focus:border-brand-accent focus:ring-1 focus:ring-brand-accent rounded-lg outline-none text-xs font-body tracking-wide transition-all placeholder-[#475569] disabled:opacity-50 text-brand-text-primary"
                     required
                   />
                 </div>
@@ -131,32 +132,32 @@ const AuthPage: React.FC<AuthPageProps> = ({ defaultIsLogin = true }) => {
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-text-muted" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#475569]" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@company.com"
                   disabled={loading}
-                  className="w-full pl-11 pr-4 py-2.5 bg-brand-bg border border-brand-border focus:border-brand-accent rounded-lg outline-none text-xs font-body tracking-wide transition-all placeholder-slate-700 disabled:opacity-50 text-brand-text-primary"
+                  className="w-full pl-11 pr-4 py-2.5 bg-[#05070A] border border-brand-border focus:border-brand-accent focus:ring-1 focus:ring-brand-accent rounded-lg outline-none text-xs font-body tracking-wide transition-all placeholder-[#475569] disabled:opacity-50 text-brand-text-primary"
                   required
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="block text-[10px] font-bold font-mono uppercase tracking-widest text-brand-text-muted">
+              <label className="block text-[10px] font-bold font-mono uppercase tracking-widest text-[#94A3B8]">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-brand-text-muted" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#475569]" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   disabled={loading}
-                  className="w-full pl-11 pr-4 py-2.5 bg-brand-bg border border-brand-border focus:border-brand-accent rounded-lg outline-none text-xs font-body tracking-wide transition-all placeholder-slate-700 disabled:opacity-50 text-brand-text-primary"
+                  className="w-full pl-11 pr-4 py-2.5 bg-[#05070A] border border-brand-border focus:border-brand-accent focus:ring-1 focus:ring-brand-accent rounded-lg outline-none text-xs font-body tracking-wide transition-all placeholder-[#475569] disabled:opacity-50 text-brand-text-primary"
                   required
                 />
               </div>
@@ -165,7 +166,7 @@ const AuthPage: React.FC<AuthPageProps> = ({ defaultIsLogin = true }) => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-2.5 bg-brand-accent hover:bg-brand-accent/90 text-brand-bg font-bold rounded-lg text-xs font-mono uppercase tracking-wider transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2 mt-4"
+              className="w-full py-2.5 bg-brand-accent hover:bg-brand-accent/95 text-brand-bg font-bold rounded-lg text-xs font-mono uppercase tracking-wider transition-all active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2 mt-6 cursor-pointer shadow-lg shadow-brand-accent/10 hover:shadow-brand-accent/20"
             >
               {loading ? (
                 <div className="w-4 h-4 border-2 border-brand-bg border-t-transparent rounded-full animate-spin"></div>
@@ -179,9 +180,9 @@ const AuthPage: React.FC<AuthPageProps> = ({ defaultIsLogin = true }) => {
           </form>
         </div>
 
-        {/* Footnotes */}
-        <p className="text-center text-[10px] font-mono tracking-wider text-brand-text-muted mt-6 leading-relaxed px-4 uppercase">
-          English / Hindi / Hinglish Code-Switched Speech
+        {/* Footer */}
+        <p className="text-center text-[10px] font-mono tracking-wider text-brand-text-muted leading-relaxed uppercase">
+          English &bull; Hindi &bull; Hinglish Speech Resolution
         </p>
       </div>
     </div>
