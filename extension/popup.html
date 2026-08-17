@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>MeetSense Companion</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <div class="popup-container">
+      <!-- Branded Header -->
+      <header class="header">
+        <div class="logo-group">
+          <!-- Small visual waveform indicator -->
+          <div class="waveform-logo">
+            <span class="bar bar-1"></span>
+            <span class="bar bar-2"></span>
+            <span class="bar bar-3"></span>
+          </div>
+          <h1 class="logo-title font-display">MeetSense</h1>
+        </div>
+        <span class="logo-tagline font-mono">COMPANION</span>
+      </header>
+
+      <!-- LOGIN VIEW -->
+      <div id="login-view" class="view hidden">
+        <p class="description font-body">Sign in to your MeetSense account to capture and auto-upload recordings.</p>
+        
+        <div class="alert alert-error hidden" id="login-error"></div>
+
+        <form id="login-form" class="form">
+          <div class="form-group">
+            <label class="label font-mono">Email Address</label>
+            <input type="email" id="email-input" class="input font-body" placeholder="name@company.com" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label class="label font-mono">Password</label>
+            <input type="password" id="password-input" class="input font-body" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+
+          <div class="form-group accordion">
+            <button type="button" id="api-toggle" class="accordion-header font-mono">Advanced API Settings &raquo;</button>
+            <div id="api-settings-panel" class="accordion-content hidden">
+              <input type="url" id="api-url-input" class="input font-mono" placeholder="http://localhost:5000/api">
+            </div>
+          </div>
+
+          <button type="submit" id="login-btn" class="btn btn-primary font-mono">Sign In</button>
+        </form>
+      </div>
+
+      <!-- DASHBOARD / CONTROL VIEW -->
+      <div id="dashboard-view" class="view hidden">
+        <!-- User Banner -->
+        <div class="user-banner font-mono">
+          <span class="user-email text-truncate" id="user-email-display">user@meetsense.com</span>
+          <button id="logout-btn" class="btn-link hover-alert">Logout</button>
+        </div>
+
+        <div class="content-box">
+          <!-- Status Indicator Area -->
+          <div class="status-panel">
+            <div id="status-indicator" class="indicator indicator-idle"></div>
+            <div class="status-text-group">
+              <span id="status-text" class="status-label font-mono">No Active Meeting</span>
+              <span id="status-subtext" class="status-sublabel font-body">Open a Google Meet tab to record</span>
+            </div>
+          </div>
+
+          <!-- Active Recording Scrubber Mockup -->
+          <div id="recording-scrubber" class="scrubber hidden">
+            <div class="scrubber-bars">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="scrubber-timer font-mono" id="timer-display">00:00</div>
+          </div>
+
+          <!-- Success/Error Notification Messages -->
+          <div id="toast-message" class="toast hidden font-mono"></div>
+
+          <!-- Controls Section -->
+          <div class="controls-panel">
+            <!-- Manual Start Button (if not on meet page or for quick capture) -->
+            <button id="start-recording-btn" class="btn btn-primary font-mono hidden">Start Recording Tab</button>
+            
+            <div id="active-controls" class="btn-group hidden">
+              <button id="pause-resume-btn" class="btn btn-secondary font-mono">Pause</button>
+              <button id="stop-recording-btn" class="btn btn-warning font-mono">Stop & Save</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer / API Info -->
+        <footer class="footer font-mono">
+          <span class="api-info-label">API: <span id="current-api-display">http://localhost:5000/api</span></span>
+        </footer>
+      </div>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>

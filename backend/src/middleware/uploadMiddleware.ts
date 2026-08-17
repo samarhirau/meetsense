@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 
 // File filter to restrict uploads to specific audio/video MIME types and file extensions
 const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-  const allowedExtensions = ['.mp3', '.wav', '.mp4', '.m4a'];
+  const allowedExtensions = ['.mp3', '.wav', '.mp4', '.m4a', '.webm'];
   const ext = path.extname(file.originalname).toLowerCase();
   
   const allowedMimeTypes = [
@@ -32,6 +32,8 @@ const fileFilter = (req: any, file: Express.Multer.File, cb: multer.FileFilterCa
     'audio/mp4',        // m4a/mp4
     'audio/x-m4a',      // m4a
     'video/mp4',        // mp4 video
+    'audio/webm',       // webm audio
+    'video/webm',       // webm video (some recording streams use video/webm even for audio-only)
   ];
 
   const hasAllowedExt = allowedExtensions.includes(ext);

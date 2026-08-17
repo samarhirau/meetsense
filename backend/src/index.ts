@@ -1,4 +1,9 @@
 import 'dotenv/config';
+import dns from 'node:dns';
+
+// Force public DNS resolution to fix Windows SRV querySrv connection issues
+dns.setServers(['8.8.8.8', '1.1.1.1']);
+
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -14,11 +19,26 @@ connectDB();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// CORS setup supporting credentials for httpOnly cookies
-const allowedOrigin = process.env.FRONTEND_URL || 'http://localhost:3000';
+// CORS setup supporting credentials for httpOnly cookies and Chrome Extensions
+const allowedOrigins = [
+  process.env.FRONTEND_URL || 'http://localhost:5173',
+  'http://localhost:5173',
+  'http://localhost:3000'
+];
+
 app.use(
   cors({
-    origin: allowedOrigin,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like curl, mobile, or same-origin)
+      if (!origin) return callback(null, true);
+      
+      const isAllowed = allowedOrigins.includes(origin) || origin.startsWith('chrome-extension://');
+      if (isAllowed) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],

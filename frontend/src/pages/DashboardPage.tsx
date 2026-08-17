@@ -97,6 +97,7 @@ const DashboardPage: React.FC = () => {
   // In-place editing state
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editTitleValue, setEditTitleValue] = useState<string>('');
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
 
   // Fetch all meetings
   const fetchMeetings = async () => {
@@ -235,22 +236,27 @@ const DashboardPage: React.FC = () => {
     }
   };
 
-  // Delete Meeting
-  const handleDeleteMeeting = async (id: string, e: React.MouseEvent) => {
+  // Trigger custom confirmation modal
+  const handleDeleteMeeting = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!confirm('Are you sure you want to delete this meeting? This will also delete all associated tasks.')) {
-      return;
-    }
+    setDeleteConfirmId(id);
+  };
 
+  // Perform actual deletion from the modal
+  const confirmDeleteMeeting = async (id: string) => {
     try {
       const response = await apiFetch(`/meetings/${id}`, { method: 'DELETE' });
       if (response.ok) {
         setMeetings((prev) => prev.filter((m) => m._id !== id));
       } else {
-        alert('Failed to delete meeting');
+        const data = await response.json().catch(() => ({}));
+        alert(`Failed to delete meeting: ${data.message || response.statusText || response.status}`);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error deleting meeting:', error);
+      alert(`Network or unexpected error: ${error.message || error}`);
+    } finally {
+      setDeleteConfirmId(null);
     }
   };
 
@@ -574,6 +580,42 @@ const DashboardPage: React.FC = () => {
           )}
         </section>
       </main>
+
+      {/* Custom Delete Confirmation Modal */}
+      {deleteConfirmId && (
+        <div className="fixed inset-0 z-[100000] flex items-center justify-center bg-black/70 backdrop-blur-sm transition-all duration-300">
+          <div className="bg-[#121614] border border-[#2A2F2C] rounded-xl p-6 max-w-md w-full mx-4 shadow-2xl space-y-5 animate-in fade-in zoom-in-95 duration-200">
+            <div className="flex items-start gap-4">
+              <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-lg">
+                <AlertCircle className="w-6 h-6" />
+              </div>
+              <div className="space-y-1.5">
+                <h3 className="text-base font-mono font-bold text-[#EDEFEC] uppercase tracking-wider">
+                  Delete Meeting
+                </h3>
+                <p className="text-xs text-[#8A928C] leading-relaxed font-body">
+                  Are you sure you want to delete this meeting? This will permanently remove all transcript logs, summaries, decisions, action items, and task board items. This action cannot be undone.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                onClick={() => setDeleteConfirmId(null)}
+                className="px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-wider rounded-lg border border-[#2A2F2C] text-[#8A928C] hover:text-[#EDEFEC] hover:bg-[#1D2220] transition-all"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => confirmDeleteMeeting(deleteConfirmId)}
+                className="px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-wider rounded-lg bg-[#EA5E5E] text-[#EDEFEC] hover:bg-red-600 transition-all shadow-lg shadow-red-950/20"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

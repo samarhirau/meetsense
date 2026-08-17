@@ -26,6 +26,16 @@ export interface MeetingInsights {
  * Uses JSON Mode with Llama-3.3-70b-versatile to ensure strict schema output.
  */
 export const extractMeetingInsights = async (transcript: string): Promise<MeetingInsights> => {
+  const cleanTranscript = transcript ? transcript.trim() : '';
+  if (!cleanTranscript) {
+    return {
+      summary: 'No meeting content detected (empty transcript).',
+      decisions: [],
+      followUps: [],
+      tasks: []
+    };
+  }
+
   try {
     const systemPrompt = `
 You are an expert AI assistant specialized in parsing meeting transcripts.
@@ -53,7 +63,10 @@ Instructions:
 - The summary should capture the essence of the meeting in exactly 2 to 4 sentences.
 - For decisions, follow-ups, and tasks: extract only what is actually present in the transcript. If none are mentioned, return an empty array.
 - For assignedTo, try to identify the specific speaker or name referenced. Default to 'Unassigned' if not mentioned.
-- Do not include any introductory or concluding text in your response. Only return the raw JSON object.
+- If the transcript is silent, contains only noise/hallucinations, or has no meeting content, you MUST still return a valid JSON object matching the schema above, with the "summary" set to "No meeting content detected." and all other arrays empty.
+- Do NOT wrap the JSON in markdown code blocks (do NOT use \`\`\`json ... \`\`\`).
+- The response MUST be a raw JSON text starting with '{' and ending with '}' with no formatting before or after.
+- Do not include any introductory or concluding text in your response.
 `;
 
     const userPrompt = `
@@ -64,7 +77,7 @@ ${transcript}
 `;
 
     const response = await groq.chat.completions.create({
-      model: 'llama-3.3-70b-versatile',
+      model: 'openai/gpt-oss-120b',
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt }

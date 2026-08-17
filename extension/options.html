@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>MeetSense Companion Settings</title>
+    <link rel="stylesheet" href="popup.css">
+    <style>
+      body {
+        width: 100%;
+        max-width: 500px;
+        margin: 60px auto;
+        background-color: var(--bg);
+        color: var(--text-primary);
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      }
+      .options-card {
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .logo-header {
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 16px;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .options-title {
+        font-size: 16px;
+        color: var(--accent);
+        letter-spacing: 0.5px;
+      }
+      .options-desc {
+        font-size: 12px;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+      .status-box {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="options-card">
+      <!-- Header -->
+      <div class="logo-header">
+        <div class="logo-group">
+          <div class="waveform-logo">
+            <span class="bar bar-1"></span>
+            <span class="bar bar-2"></span>
+            <span class="bar bar-3"></span>
+          </div>
+          <h1 class="logo-title font-display" style="font-size: 20px;">MeetSense Settings</h1>
+        </div>
+      </div>
+
+      <!-- Main UI Panel -->
+      <div class="view">
+        <h2 class="options-title font-mono">Microphone Access Authorization</h2>
+        <p class="options-desc font-body">
+          To record your own voice alongside the meeting tab audio, MeetSense requires microphone access. 
+          Chrome restricts permission prompts from short-lived popups or background scripts. 
+          Please authorize access below.
+        </p>
+
+        <button id="request-mic-btn" class="btn btn-primary font-mono" style="max-width: 240px; margin-top: 10px;">
+          Enable Microphone
+        </button>
+
+        <div class="status-box">
+          <div id="status-message" class="toast hidden font-mono"></div>
+        </div>
+      </div>
+    </div>
+    <script src="options.js"></script>
+  </body>
+</html>
